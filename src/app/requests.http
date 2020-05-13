@@ -1,0 +1,13 @@
+ get http://localhost:8989/projeto/api/contatos/contador
+
+Post  http://localhost:8989/projeto/api/contatos/inserir HTTP/1.1
+Content-Type: application/json
+
+{
+   "name": "Neji",
+   "email": "neji@governodekonoha.com",
+   "phone": "(111) 111-1111"
+}
+
+
+# GET http://localhost:8080/api/contatos/7

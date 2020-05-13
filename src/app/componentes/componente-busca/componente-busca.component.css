@@ -1,0 +1,16 @@
+#sumirFundo{
+  background: none;
+  border:0;
+}
+
+#fonteTitulo{
+  font-family: Pokemon;-webkit-text-stroke-width: 2px;-webkit-text-stroke-color:#2d4c8f;color: #ffcc01;
+}
+
+#fonteConteudo{
+  font-family: Pokemon;
+  -webkit-text-stroke-width: 0.8px;
+  -webkit-text-stroke-color: #2d4c8f;
+  color: #ffcc01;
+  font-size: 25px;
+}

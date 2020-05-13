@@ -1,0 +1,54 @@
+<div class="col-md-12">
+  <div style="display: flex; flex-direction: row-reverse;">
+      <img src="https://cdn.freebiesupply.com/logos/thumbs/2x/pokemon-23-logo.png" width="100px">
+    </div>
+<div style="display: flex; justify-content:center;">
+  <p style="font-size: 30px;" id="fonteTitulo"> Pokedex </p>
+</div>
+</div>
+<div class="col-md-12" style="display: flex; justify-content:  center">
+        <mat-form-field class="example-full-width">
+          <mat-label>Escolha um Pokemon: </mat-label>
+          <input matInput placeholder="Digite um pokemon" [(ngModel)]="escolhaPokemon" style="margin-right: 4px;">
+        </mat-form-field>
+   <button  mat-raised-button color="primary" style=" margin-left: 4px; height: 40px" (click)="listarPokemon()">
+    Listar Pokemon
+  </button>
+</div>
+<div class="col-md-12" style="display: flex; justify-content: center;" id="fonteConteudo">
+ <div
+    class="card"
+    style="width: 350px; display: flex; justify-content: center; border:0; background:none;"
+    *ngIf="pokemonConcluido"
+  >
+    <div class="card-body" style="font-family: Pokemon; color:  display: flex; justify-content: center; flex-direction: column; line-height: 0.1px" >
+      <img
+        [src]="respostaPokemon.sprites.front_default"
+        style="width: 130px; height: 130px; margin-left: 85px; margin-top: 20px;"
+      />
+      <h5 class="card-title" style="text-align: left;"><strong>Descrição:</strong></h5>
+      <div class="card-body" style="padding:0">
+        <ul
+          class="list-group list-group-flush" style="margin-left: 39px;"
+        >
+          <li class="list-group-item" id="sumirFundo">
+            <strong>ID:</strong> {{ respostaPokemon.id }}
+          </li>
+          <li class="list-group-item" id="sumirFundo">
+            <strong>Nome:</strong> {{ nomeFormatado }}
+          </li>
+          <li class="list-group-item" id="sumirFundo" *ngFor="let item of respostaPokemon.types; let i = index">
+            <strong>Tipo {{i+1}}: </strong> {{ item.type.name }}
+          </li>
+
+          <li class="list-group-item" id="sumirFundo">
+            <strong>Altura:</strong> {{ respostaPokemon.height }}''
+          </li>
+          <li class="list-group-item" id="sumirFundo">
+            <strong>Peso: </strong> {{ respostaPokemon.weight }} lbs
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%;
+ }
+body { margin: 0; font-family: Pokemon!important;
+background-image: linear-gradient(to bottom, #f44336, #f44336bd, #f4433669, #efe9e9a3);
+ }
+
+ .imagemFundo{
+    background-image: url("https://pngimg.com/uploads/pokeball/pokeball_PNG8.png");
+    width: 100vw;
+    height: 100vh;
+ }
