@@ -22,10 +22,22 @@
     *ngIf="pokemonConcluido"
   >
     <div class="card-body" style="font-family: Pokemon; color:  display: flex; justify-content: center; flex-direction: column; line-height: 0.1px" >
-      <img
-        [src]="respostaPokemon.sprites.front_default"
-        style="width: 130px; height: 130px; margin-left: 85px; margin-top: 20px;"
-      />
+        <div id="carouselPokemon" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                  <img [src]="respostaPokemon.sprites.front_default"style="width: 130px; height: 130px; margin-left: 85px; margin-top: 20px;"
+                  />
+              </div>
+            </div>
+            <a class="carousel-control-prev" (click)="antigoPokemon(respostaPokemon.id)" href="#carouselPokemon" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Anterior</span>
+            </a>
+            <a class="carousel-control-next" (click)="proximoPokemon(respostaPokemon.id)" href="#carouselPokemon" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Próxima</span>
+            </a>
+          </div>
       <h5 class="card-title" style="text-align: left;"><strong>Descrição:</strong></h5>
       <div class="card-body" style="padding:0">
         <ul
@@ -41,11 +53,11 @@
             <strong>Tipo {{i+1}}: </strong> {{ item.type.name }}
           </li>
 
-          <li class="list-group-item" id="sumirFundo">
-            <strong>Altura:</strong> {{ respostaPokemon.height }}''
+          <li class="list-group-item" id="sumirFundo" style="width: 280px">
+            <strong>Altura:</strong> {{ converteAltura }} metros
           </li>
           <li class="list-group-item" id="sumirFundo">
-            <strong>Peso: </strong> {{ respostaPokemon.weight }} lbs
+            <strong>Peso: </strong> {{ convertePeso }} kilos
           </li>
         </ul>
       </div>
