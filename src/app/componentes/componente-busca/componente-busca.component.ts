@@ -35,18 +35,19 @@ export class ComponenteBuscaComponent implements OnInit {
         headers: this.reqHeader
       })
       .subscribe(data => {
+   const year = 2020;
+        for(let year = 2020; year <= 2000; year--){
+      console.log(year);
+    }
         this.respostaPokemon = data;
         this.converteAltura = (this.respostaPokemon.height / 10);
         this.convertePeso = (this.respostaPokemon.weight / 10);
-          console.log(this.converteAltura);
-          console.log(this.convertePeso);
           this.nomeFormatado =
           this.respostaPokemon.name.substring(0, 1).toUpperCase() +
           this.respostaPokemon.name.substring(
             1,
             this.respostaPokemon.name.length
           );
-        console.log(data);
         if (this.respostaPokemon.types.length > 1) {
           this.tipos = true;
         }
@@ -66,22 +67,18 @@ export class ComponenteBuscaComponent implements OnInit {
         this.respostaPokemon = data;
         this.converteAltura = (this.respostaPokemon.height / 10);
         this.convertePeso = (this.respostaPokemon.weight / 10);
-          console.log("AAAAAA",this.converteAltura);
-          console.log(this.convertePeso);
-          this.nomeFormatado =
+            this.nomeFormatado =
           this.respostaPokemon.name.substring(0, 1).toUpperCase() +
           this.respostaPokemon.name.substring(
             1,
             this.respostaPokemon.name.length
           );
-        console.log(data);
         if (this.respostaPokemon.types.length > 1) {
           this.tipos = true;
         }
         this.pokemonConcluido = true;
       }, err => 
       alert("Erro ao buscar o pokemon!"));
-    console.log(i++);
   }
 
   antigoPokemon(i){
@@ -98,23 +95,21 @@ export class ComponenteBuscaComponent implements OnInit {
         this.respostaPokemon = data;
         this.converteAltura = (this.respostaPokemon.height / 10);
         this.convertePeso = (this.respostaPokemon.weight / 10);
-          console.log("AAAAAA",this.converteAltura);
-          console.log(this.convertePeso);
           this.nomeFormatado =
           this.respostaPokemon.name.substring(0, 1).toUpperCase() +
           this.respostaPokemon.name.substring(
             1,
             this.respostaPokemon.name.length
           );
-        console.log(data);
         if (this.respostaPokemon.types.length > 1) {
           this.tipos = true;
         }
         this.pokemonConcluido = true;
       }, err => 
       alert("Erro ao buscar o pokemon!"));
-    console.log(i++);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
 }
