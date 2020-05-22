@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'componente-busca',
@@ -7,11 +7,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./componente-busca.component.css']
 })
 export class ComponenteBuscaComponent implements OnInit {
-  numeroHeader: string =
-    'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTg5OTY4MzY2fQ.' +
-    'eaoy7euvQ29dyPPZYfsRm0xEjlN_s04q1MGPUbQpuFdN2jcWIGIV60Yhe7AR-bqNPU4M3O-2b-02GPdtp-lV7w';
+  cabecalhoAutorizacao: any;
+  resultadoAutorizacao: any = localStorage.getItem('token')
   reqHeader = new HttpHeaders({
-    Authorization: this.numeroHeader
+    Authorization: this.resultadoAutorizacao
   });
   respostaGeral: any;
   aparecerForm: any = false;
@@ -20,45 +19,44 @@ export class ComponenteBuscaComponent implements OnInit {
   nomeFormatado: any;
   tipos: any = false;
   converteAltura: any;
-  convertePeso:any;
+  convertePeso: any;
 
   escolhaPokemon: string;
-
+  corpo: any = {
+    username: 'user',
+    password: 'senha'
+ };
   constructor(private http: HttpClient) {
     this.http = http;
   }
-
    listarPokemon() {
      const criterioBusca = this.escolhaPokemon.toLowerCase();
-    return this.http
+     return this.http
       .get('http://localhost:4200/api/pokemon/' + criterioBusca, {
         headers: this.reqHeader
       })
       .subscribe(data => {
-   const year = 2020;
-        for(let year = 2020; year <= 2000; year--){
-      console.log(year);
-    }
-        this.respostaPokemon = data;
-        this.converteAltura = (this.respostaPokemon.height / 10);
-        this.convertePeso = (this.respostaPokemon.weight / 10);
-          this.nomeFormatado =
+   this.respostaPokemon = data;
+   this.converteAltura = (this.respostaPokemon.height / 10);
+   this.convertePeso = (this.respostaPokemon.weight / 10);
+   this.nomeFormatado =
           this.respostaPokemon.name.substring(0, 1).toUpperCase() +
           this.respostaPokemon.name.substring(
             1,
             this.respostaPokemon.name.length
           );
-        if (this.respostaPokemon.types.length > 1) {
+   if (this.respostaPokemon.types.length > 1) {
           this.tipos = true;
         }
-        this.pokemonConcluido = true;
-      }, err => 
-      alert("Erro ao buscar o pokemon!"));
+   this.pokemonConcluido = true;
+      }, err =>
+      alert('Erro ao buscar o pokemon!'));
   }
 
-  proximoPokemon(i){
+  proximoPokemon(i) {
+    // tslint:disable-next-line: radix
     const conversao = parseInt(i);
-    const numero = conversao+1;
+    const numero = conversao + 1;
     return this.http
       .get('http://localhost:4200/api/pokemon/' + numero, {
         headers: this.reqHeader
@@ -67,7 +65,7 @@ export class ComponenteBuscaComponent implements OnInit {
         this.respostaPokemon = data;
         this.converteAltura = (this.respostaPokemon.height / 10);
         this.convertePeso = (this.respostaPokemon.weight / 10);
-            this.nomeFormatado =
+        this.nomeFormatado =
           this.respostaPokemon.name.substring(0, 1).toUpperCase() +
           this.respostaPokemon.name.substring(
             1,
@@ -77,14 +75,14 @@ export class ComponenteBuscaComponent implements OnInit {
           this.tipos = true;
         }
         this.pokemonConcluido = true;
-      }, err => 
-      alert("Erro ao buscar o pokemon!"));
+      }, err =>
+      alert('Erro ao buscar o pokemon!'));
   }
 
-  antigoPokemon(i){
+  antigoPokemon(i) {
     const conversao = parseInt(i);
-    var numero = conversao-1;
-    if(numero === 0){
+    let numero = conversao - 1;
+    if (numero === 0) {
       numero = 1;
     }
     return this.http
@@ -95,7 +93,7 @@ export class ComponenteBuscaComponent implements OnInit {
         this.respostaPokemon = data;
         this.converteAltura = (this.respostaPokemon.height / 10);
         this.convertePeso = (this.respostaPokemon.weight / 10);
-          this.nomeFormatado =
+        this.nomeFormatado =
           this.respostaPokemon.name.substring(0, 1).toUpperCase() +
           this.respostaPokemon.name.substring(
             1,
@@ -105,11 +103,21 @@ export class ComponenteBuscaComponent implements OnInit {
           this.tipos = true;
         }
         this.pokemonConcluido = true;
-      }, err => 
-      alert("Erro ao buscar o pokemon!"));
+      }, err =>
+      alert('Erro ao buscar o pokemon!'));
   }
 
   ngOnInit() {
-    
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Authorization': '' }),
+      observe: 'response' as 'response'
+    };
+    this.http.post('http://localhost:4200/login', this.corpo, httpOptions).subscribe((res: HttpResponse<any>) => {
+    const editarString = res.headers.get('Authorization');
+    const stringEditada = editarString.split(' ');
+    this.cabecalhoAutorizacao = stringEditada[1];
+    localStorage.setItem('token', this.cabecalhoAutorizacao);
+    });
+
   }
 }
