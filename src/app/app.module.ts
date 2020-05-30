@@ -1,5 +1,5 @@
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,11 +9,15 @@ import { ComponenteBuscaComponent } from './componentes/componente-busca/compone
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { UploadTesteComponent } from './componentes/upload-teste/upload-teste.component';
+import { Routes, RouterModule } from '@angular/router';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ComponenteBuscaComponent
+    ComponenteBuscaComponent,
+    UploadTesteComponent
   ],
   imports: [
     BrowserModule,
@@ -24,10 +28,13 @@ import { MatInputModule } from '@angular/material/input';
     ReactiveFormsModule,
     MatButtonModule,
     MatInputModule,
-
-
+   ],
+  exports: [
+    ComponenteBuscaComponent,
+    UploadTesteComponent,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

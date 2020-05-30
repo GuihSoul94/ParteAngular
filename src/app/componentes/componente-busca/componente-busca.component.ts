@@ -8,7 +8,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 })
 export class ComponenteBuscaComponent implements OnInit {
   cabecalhoAutorizacao: any;
-  resultadoAutorizacao: any = localStorage.getItem('token')
+  resultadoAutorizacao: any = localStorage.getItem('token');
   reqHeader = new HttpHeaders({
     Authorization: this.resultadoAutorizacao
   });
