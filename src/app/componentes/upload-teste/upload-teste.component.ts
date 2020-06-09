@@ -50,9 +50,9 @@ export class UploadTesteComponent implements OnInit {
     // Make a call to the Spring Boot Application to save the image
     this.httpClient
       .post('http://localhost:4200/image/upload', uploadImageData, options)
-      .subscribe((response) => {
+      .subscribe((response:HttpResponse<any>) => {
         console.log(response);
-        if (response) {
+        if (response.status == 200) {
           this.message = 'Image uploaded successfully';
         } else {
           this.message = 'Image not uploaded successfully';

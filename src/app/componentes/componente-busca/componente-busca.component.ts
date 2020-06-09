@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 @Component({
+  // tslint:disable-next-line: component-selector
   selector: 'componente-busca',
   templateUrl: './componente-busca.component.html',
   styleUrls: ['./componente-busca.component.css']
@@ -35,22 +36,22 @@ export class ComponenteBuscaComponent implements OnInit {
       .get('http://localhost:4200/api/pokemon/' + criterioBusca, {
         headers: this.reqHeader
       })
-      .subscribe(data => {
-   this.respostaPokemon = data;
-   this.converteAltura = (this.respostaPokemon.height / 10);
-   this.convertePeso = (this.respostaPokemon.weight / 10);
-   this.nomeFormatado =
+      .subscribe((data: HttpResponse<any>) => {
+          this.respostaPokemon = data.body;
+          this.converteAltura = (this.respostaPokemon.height / 10);
+          this.convertePeso = (this.respostaPokemon.weight / 10);
+          this.nomeFormatado =
           this.respostaPokemon.name.substring(0, 1).toUpperCase() +
           this.respostaPokemon.name.substring(
             1,
             this.respostaPokemon.name.length
           );
-   if (this.respostaPokemon.types.length > 1) {
+          if (this.respostaPokemon.types.length > 1) {
           this.tipos = true;
         }
-   this.pokemonConcluido = true;
+          this.pokemonConcluido = true;
       }, err =>
-      alert('Erro ao buscar o pokemon!'));
+      console.log('Erro ao buscar o pokemon!', err));
   }
 
   proximoPokemon(i) {
@@ -61,8 +62,8 @@ export class ComponenteBuscaComponent implements OnInit {
       .get('http://localhost:4200/api/pokemon/' + numero, {
         headers: this.reqHeader
       })
-      .subscribe(data => {
-        this.respostaPokemon = data;
+      .subscribe((data: HttpResponse<any>) => {
+        this.respostaPokemon = data.body;
         this.converteAltura = (this.respostaPokemon.height / 10);
         this.convertePeso = (this.respostaPokemon.weight / 10);
         this.nomeFormatado =
@@ -80,6 +81,7 @@ export class ComponenteBuscaComponent implements OnInit {
   }
 
   antigoPokemon(i) {
+    // tslint:disable-next-line: radix
     const conversao = parseInt(i);
     let numero = conversao - 1;
     if (numero === 0) {
@@ -89,8 +91,8 @@ export class ComponenteBuscaComponent implements OnInit {
       .get('http://localhost:4200/api/pokemon/' + numero, {
         headers: this.reqHeader
       })
-      .subscribe(data => {
-        this.respostaPokemon = data;
+      .subscribe((data: HttpResponse<any>) => {
+        this.respostaPokemon = data.body;
         this.converteAltura = (this.respostaPokemon.height / 10);
         this.convertePeso = (this.respostaPokemon.weight / 10);
         this.nomeFormatado =
@@ -109,7 +111,7 @@ export class ComponenteBuscaComponent implements OnInit {
 
   ngOnInit() {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Authorization': '' }),
+      headers: new HttpHeaders({ Authorization: '' }),
       observe: 'response' as 'response'
     };
     this.http.post('http://localhost:4200/login', this.corpo, httpOptions).subscribe((res: HttpResponse<any>) => {
